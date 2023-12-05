@@ -47,7 +47,6 @@ public class BlocRestController {
 
     @PostMapping("addBloc")
     Bloc AddBloc(@RequestBody Bloc b ){
-
         return iBlocService.addBloc(b);
     }
     @PostMapping("addAllBlocs")

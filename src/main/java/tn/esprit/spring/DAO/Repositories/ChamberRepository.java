@@ -45,4 +45,6 @@ public interface ChamberRepository  extends JpaRepository<Chamber,Long> {
 
     @Query(value="select * from chamber where numeroChamber=?1" , nativeQuery = true)
     List<Chamber> selectByNumSQL( long num)  ;
+
+
 }

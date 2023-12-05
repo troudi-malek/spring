@@ -113,6 +113,14 @@ public class ReservationService implements IReservationService {
 
         return null;
     }
+    public void annulertoutReservation(){
+
+        List<Reservation> reservations = reservationRepository.findAll();
+        for (Reservation reservation: reservations){
+            reservation.setEstValide(false);
+            reservationRepository.save(reservation);
+        }
+    }
 
     @Override
     public void deleteById(String id) {

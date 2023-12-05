@@ -19,4 +19,6 @@ public interface IChamberService {
 
     List<Chamber> getChambresNonReserveParNomFoyerEtTypeChambre( String nomFoyer,TypeChamber type) ;
     long nbChambreParTypeEtBloc( TypeChamber type, long idBloc) ;
+    void listChambreParBloc();
+    void nbPlacesDisponibleParChambreAnneeEnCours();
 }

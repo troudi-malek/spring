@@ -1,19 +1,23 @@
 package tn.esprit.spring.Services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Chamber;
 import tn.esprit.spring.DAO.Entities.TypeChamber;
 import tn.esprit.spring.DAO.Repositories.BlocRepository;
 import tn.esprit.spring.DAO.Repositories.ChamberRepository;
+import tn.esprit.spring.DAO.Repositories.ReservationRepository;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class ChamberService implements IChamberService{
     ChamberRepository chamberRepository;
+    ReservationRepository reservationRepository;
 
     @Override
     public Chamber findByNumerochamberAndTypeC(long numero, TypeChamber type) {
@@ -74,4 +78,50 @@ public class ChamberService implements IChamberService{
         int c = chamberRepository.countChamberByTypeCAndBloc_IdBloc(type , idBloc);
         return c;
     }
+
+    @Override
+    public void listChambreParBloc() {
+        List<Bloc> blocs = blocRepository.findAll();
+        blocs.forEach(bloc -> {
+            log.info("Bloc => "+ bloc.getNomBloc()+" ayant une capacite "+bloc.getCapaciteBloc());
+            if(bloc.getChambers().isEmpty()){
+                log.info("Pas de chamber disponible dans ce bloc");
+            }else{
+                bloc.getChambers().forEach(chamber -> {
+                    log.info("type de chambre : "+chamber.getTypeC().toString());
+
+                });
+            }
+
+        });
+    }
+
+    @Override
+    public void nbPlacesDisponibleParChambreAnneeEnCours() {
+      List<Chamber> chambers=chamberRepository.findAll();
+
+      chambers.forEach(chamber->{
+          int capacite=0;
+          if(chamber.getReservations().isEmpty()){
+              log.info("la chambre "+chamber.getTypeC()+chamber.getNumerochamber()+"est compete");
+          }else{
+              switch (chamber.getTypeC()){
+                  case Simple:
+                      capacite=1;
+                      break;
+                  case Double:
+                      capacite=2;
+                      break;
+                  case Triple:
+                      capacite=3;
+                      break;
+              }
+              int placesDisponibles = capacite - chamber.getReservations().size();
+              log.info("Le nombre de place disponible pour la chambre " + chamber.getTypeC() + chamber.getNumerochamber()+" est " + placesDisponibles);
+          }
+      });
+
+    }
+
+
 }

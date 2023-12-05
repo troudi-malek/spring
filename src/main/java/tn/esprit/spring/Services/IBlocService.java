@@ -25,4 +25,5 @@ public interface IBlocService {
     Bloc affecterBlocAFoyer( String nomBloc, String nomFoyer) ;
 
 
+
 }

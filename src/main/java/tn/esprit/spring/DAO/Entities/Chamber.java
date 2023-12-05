@@ -3,6 +3,8 @@ package tn.esprit.spring.DAO.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +31,7 @@ public class Chamber {
     Bloc bloc ;
 
     @OneToMany(cascade =  CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
     private  Set<Reservation> reservations  = new HashSet<>();
 
 }

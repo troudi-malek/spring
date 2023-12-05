@@ -124,4 +124,6 @@ public class BlocService implements IBlocService{
         b.setFoyer(f);
         return blocRepository.save(b);
     }
+
+
 }

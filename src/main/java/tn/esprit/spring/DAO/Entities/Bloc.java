@@ -27,6 +27,6 @@ public class Bloc {
     Foyer foyer ;
 
 
-    @OneToMany(mappedBy = "bloc" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bloc" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Chamber> chambers = new HashSet<>();
 }
