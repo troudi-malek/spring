@@ -1,5 +1,6 @@
 package tn.esprit.spring.AOP;
 
+import jakarta.persistence.Embeddable;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -14,8 +15,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class FoyerAspect {
     //Methode: Advice
+    //dddd
     @After("execution(* tn.esprit.spring.Services.*.*(..))")
     public void methode(JoinPoint jp){
+        log.info("by by "+jp.getSignature().getName());
+    }
+    @Before("execution(* tn.esprit.spring.Services.*.*(..))")
+    public void methode2(JoinPoint jp){
         log.info("by by "+jp.getSignature().getName());
     }
 
